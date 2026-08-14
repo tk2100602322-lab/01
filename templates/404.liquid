@@ -1,42 +1,15 @@
-<div class="container">
-  <div class="error-page">
-    <h1 class="error-code">404</h1>
-    <h2 class="error-title">{{ 'general.404.page' | t }}</h2>
-    <p class="error-message">{{ 'general.404.suggestion' | t }}</p>
-    
-    <div class="error-actions">
-      <a href="/" class="button">{{ 'general.breadcrumbs.home' | t }}</a>
-      <a href="/collections/all" class="button button-secondary">Continue Shopping</a>
-    </div>
-
-    <div class="search-section">
-      <h3>{{ 'search' | t }}</h3>
-      <form method="get" action="/search" class="search-form" data-search-form>
-        <input 
-          type="search" 
-          name="q" 
-          placeholder="Search products..."
-          class="search-input"
-          required
-        >
-        <button type="submit" class="button">{{ 'search' | t }}</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-{% stylesheet %}
+<style>
   .error-page {
-    text-align: center;
-    padding: 4rem 2rem;
     max-width: 600px;
     margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
   }
 
   .error-code {
     font-size: 6rem;
     font-weight: bold;
-    color: {{ settings.colors_accent_1 }};
+    color: #121212;
     margin: 0 0 1rem 0;
     line-height: 1;
   }
@@ -44,7 +17,7 @@
   .error-title {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: {{ settings.colors_text }};
+    color: #121212;
   }
 
   .error-message {
@@ -62,19 +35,37 @@
     flex-wrap: wrap;
   }
 
-  .error-actions .button {
+  .error-actions a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #121212;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
     min-width: 150px;
+    transition: background-color 0.3s ease;
+  }
+
+  .error-actions a:hover {
+    background-color: #334fb4;
+  }
+
+  .error-actions a.secondary {
+    background-color: white;
+    border: 2px solid #121212;
+    color: #121212;
   }
 
   .search-section {
-    background-color: {{ settings.colors_background_2 }};
+    background-color: #f3f3f3;
     padding: 2rem;
     border-radius: 8px;
   }
 
   .search-section h3 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.3rem;
   }
 
   .search-form {
@@ -90,35 +81,42 @@
     font-size: 1rem;
   }
 
-  .search-input:focus {
-    outline: none;
-    border-color: {{ settings.colors_accent_1 }};
-    box-shadow: 0 0 0 2px rgba({{ settings.colors_accent_1 }}, 0.1);
+  .search-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #121212;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
   }
 
   @media (max-width: 768px) {
-    .error-code {
-      font-size: 4rem;
-    }
-
-    .error-title {
-      font-size: 1.5rem;
-    }
-
-    .error-actions {
-      flex-direction: column;
-    }
-
-    .error-actions .button {
-      width: 100%;
-    }
-
-    .search-form {
-      flex-direction: column;
-    }
-
-    .search-input {
-      width: 100%;
-    }
+    .error-code { font-size: 4rem; }
+    .error-title { font-size: 1.5rem; }
+    .error-actions { flex-direction: column; }
+    .error-actions a { width: 100%; }
+    .search-form { flex-direction: column; }
+    .search-input { width: 100%; }
+    .search-button { width: 100%; }
   }
-{% endstylesheet %}
+</style>
+
+<div class="error-page">
+  <h1 class="error-code">404</h1>
+  <h2 class="error-title">Page Not Found</h2>
+  <p class="error-message">The page you were looking for does not exist. Click below to continue shopping.</p>
+  
+  <div class="error-actions">
+    <a href="/">Home</a>
+    <a href="/collections/all" class="secondary">Continue Shopping</a>
+  </div>
+
+  <div class="search-section">
+    <h3>Search Our Store</h3>
+    <form method="get" action="/search">
+      <input type="search" name="q" placeholder="Search products..." class="search-input" required>
+      <button type="submit" class="search-button">Search</button>
+    </form>
+  </div>
+</div>
