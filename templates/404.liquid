@@ -84,13 +84,10 @@
   <h1>404</h1>
   <h2>Page Not Found</h2>
   <p>The page you are looking for could not be found.</p>
-  
-  <a href="/">Go Home</a>
-  <a href="/collections/all" class="secondary">Continue Shopping</a>
-  
+
   <div class="search-box">
     <h3>Search</h3>
-    <form action="/search" method="get">
+    <form onsubmit="return false;">
       <input type="text" name="q" placeholder="Search products..." />
       <button type="submit">Search</button>
     </form>
