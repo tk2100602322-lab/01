@@ -41,5 +41,7 @@
     "terms_of_service": "Terms of Service",
     "refund_policy": "Refund Policy",
     "shipping_policy": "Shipping Policy"
-  }
+  },
+  "search": "Search",
+  "search_placeholder": "Search products..."
 }

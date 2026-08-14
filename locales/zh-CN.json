@@ -41,5 +41,7 @@
     "terms_of_service": "服务条款",
     "refund_policy": "退款政策",
     "shipping_policy": "运输政策"
-  }
+  },
+  "search": "搜索",
+  "search_placeholder": "搜索产品..."
 }

@@ -1,0 +1,126 @@
+{% layout 'theme' %}
+
+<div class="container">
+  <div class="error-page">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">{{ 'general.404.page' | t }}</h2>
+    <p class="error-message">{{ 'general.404.suggestion' | t }}</p>
+    
+    <div class="error-actions">
+      <a href="/" class="button">{{ 'general.breadcrumbs.home' | t }}</a>
+      <a href="/collections/all" class="button button-secondary">{{ 'products.general.add_to_cart' | t: action: 'Shop' }}</a>
+    </div>
+
+    <div class="search-section">
+      <h3>{{ 'search' | t }}</h3>
+      <form method="get" action="/search" class="search-form" data-search-form>
+        <input 
+          type="search" 
+          name="q" 
+          placeholder="{{ 'search.placeholder' | t }}"
+          class="search-input"
+          required
+        >
+        <button type="submit" class="button">{{ 'search' | t }}</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .error-page {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: {{ settings.colors_accent_1 }};
+    margin: 0 0 1rem 0;
+    line-height: 1;
+  }
+
+  .error-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: {{ settings.colors_text }};
+  }
+
+  .error-message {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .error-actions .button {
+    min-width: 150px;
+  }
+
+  .search-section {
+    background-color: {{ settings.colors_background_2 }};
+    padding: 2rem;
+    border-radius: 8px;
+  }
+
+  .search-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-form {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: {{ settings.colors_accent_1 }};
+    box-shadow: 0 0 0 2px rgba({{ settings.colors_accent_1 }}, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .error-code {
+      font-size: 4rem;
+    }
+
+    .error-title {
+      font-size: 1.5rem;
+    }
+
+    .error-actions {
+      flex-direction: column;
+    }
+
+    .error-actions .button {
+      width: 100%;
+    }
+
+    .search-form {
+      flex-direction: column;
+    }
+
+    .search-input {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
