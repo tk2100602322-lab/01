@@ -1,0 +1,45 @@
+{
+  "general": {
+    "404": {
+      "page": "Page not found",
+      "suggestion": "The page you requested does not exist. Click here to continue shopping."
+    },
+    "breadcrumbs": {
+      "home": "Home"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to main content"
+  },
+  "products": {
+    "general": {
+      "quantity_label": "Quantity",
+      "quantity_minimum_message": "Minimum quantity is {{ quantity }}",
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable"
+    },
+    "product": {
+      "price_label": "Price",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "remove": "Remove",
+      "estimated_total": "Estimated total",
+      "continue_shopping": "Continue shopping",
+      "checkout": "Check out",
+      "empty": "Your cart is empty",
+      "note": "Order special instructions"
+    }
+  },
+  "policies": {
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "refund_policy": "Refund Policy",
+    "shipping_policy": "Shipping Policy"
+  }
+}

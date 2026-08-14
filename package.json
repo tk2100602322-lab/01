@@ -1,0 +1,25 @@
+{
+  "name": "Impulse Theme",
+  "version": "1.0.0",
+  "description": "A modern, conversion-focused Shopify theme designed to showcase products and build trust.",
+  "author": "Your Store",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "shopify",
+    "theme",
+    "ecommerce",
+    "responsive"
+  ],
+  "shopify": {
+    "theme": {
+      "name": "Impulse Theme",
+      "id": null,
+      "role": "main",
+      "development": false
+    }
+  }
+}

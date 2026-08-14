@@ -1,0 +1,61 @@
+{
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner text",
+      "default": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "rgba(0, 0, 0, 0.3)"
+    }
+  ]
+}
+
+{% stylesheet %}
+  .collection-banner {
+    position: relative;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+
+  .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ section.settings.overlay_color }};
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .banner-content h1 {
+    font-size: 3rem;
+  }
+{% endstylesheet %}
+
+<div class="collection-banner" {% if section.settings.banner_image %}style="background-image: url('{{ section.settings.banner_image | image_url: width: 1600 }}')"{% endif %}>
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <h1>{{ section.settings.banner_text }}</h1>
+  </div>
+</div>

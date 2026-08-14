@@ -1,0 +1,16 @@
+<div class="product-card">
+  <div class="product-card-image">
+    <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+  </div>
+  <div class="product-card-info">
+    <h3 class="product-card-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    <p class="product-card-price">{{ product.price | money }}</p>
+    {% if product.available %}
+      <button class="button button-primary">Add to cart</button>
+    {% else %}
+      <p class="text-danger">Sold out</p>
+    {% endif %}
+  </div>
+</div>

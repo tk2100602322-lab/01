@@ -1,0 +1,88 @@
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover our amazing collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ]
+}
+
+{% stylesheet %}
+  .hero {
+    position: relative;
+    height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+
+  .hero-content {
+    max-width: 600px;
+    padding: 2rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: white;
+    color: #121212;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .hero-button:hover {
+    background-color: #f3f3f3;
+  }
+{% endstylesheet %}
+
+<div class="hero" {% if section.settings.hero_image %}style="background-image: url('{{ section.settings.hero_image | image_url: width: 1600 }}')"{% endif %}>
+  <div class="hero-content">
+    <h1>{{ section.settings.title }}</h1>
+    <p>{{ section.settings.description }}</p>
+    {% if section.settings.button_url %}
+      <a href="{{ section.settings.button_url }}" class="hero-button">{{ section.settings.button_text }}</a>
+    {% endif %}
+  </div>
+</div>

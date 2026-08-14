@@ -1,0 +1,34 @@
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header_text",
+      "label": "Header text",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Background color",
+      "default": "#121212"
+    }
+  ]
+}
+
+{% stylesheet %}
+  .header {
+    background-color: {{ section.settings.header_bg_color }};
+    color: white;
+    padding: 2rem;
+    text-align: center;
+  }
+{% endstylesheet %}
+
+<header class="header">
+  <h1>{{ section.settings.header_text }}</h1>
+</header>
+
+{% javascript %}
+  console.log('Header section loaded');
+{% endjavascript %}

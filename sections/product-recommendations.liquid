@@ -1,0 +1,113 @@
+{
+  "name": "Product Recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "You might also like"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+
+{% stylesheet %}
+  .product-recommendations {
+    padding: 3rem 2rem;
+    background-color: {{ settings.colors_background_2 }};
+    margin-top: 3rem;
+  }
+
+  .recommendations-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .recommendation-item {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .recommendation-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .recommendation-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background-color: #e5e5e5;
+  }
+
+  .recommendation-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .recommendation-info {
+    padding: 1.5rem;
+  }
+
+  .recommendation-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .recommendation-price {
+    font-weight: bold;
+    color: {{ settings.colors_accent_1 }};
+    margin-bottom: 1rem;
+  }
+{% endstylesheet %}
+
+<div class="product-recommendations">
+  <h2 class="recommendations-title">{{ section.settings.title }}</h2>
+  <div class="recommendations-grid" data-product-recommendations>
+    <!-- Recommendations will be populated by Shopify's API -->
+  </div>
+</div>
+
+{% javascript %}
+  const productRecommendationsSection = document.querySelector('[data-product-recommendations]');
+  
+  if (productRecommendationsSection && Shopify?.theme?.store?.productId) {
+    fetch(`/recommendations/products.json?product_id=${Shopify.theme.store.productId}&limit={{ section.settings.products_count }}`)
+      .then(response => response.json())
+      .then(data => {
+        productRecommendationsSection.innerHTML = data.products.map(product => `
+          <div class="recommendation-item">
+            <div class="recommendation-image">
+              <img src="${product.featured_image.url}" alt="${product.title}">
+            </div>
+            <div class="recommendation-info">
+              <h3 class="recommendation-title">
+                <a href="${product.url}">${product.title}</a>
+              </h3>
+              <p class="recommendation-price">${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price / 100)}</p>
+              <a href="${product.url}" class="button">View</a>
+            </div>
+          </div>
+        `).join('');
+      })
+      .catch(error => console.error('Error loading recommendations:', error));
+  }
+{% endjavascript %}

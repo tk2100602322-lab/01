@@ -1,0 +1,314 @@
+{
+  "name": "Product Information",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": true
+    }
+  ]
+}
+
+{% stylesheet %}
+  .product-information {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .product-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .product-gallery {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .product-image {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .product-details h1 {
+    margin-bottom: 1rem;
+  }
+
+  .product-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .product-rating {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .product-rating .star {
+    color: #ffc107;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .product-description {
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .product-options {
+    margin-bottom: 2rem;
+  }
+
+  .product-option {
+    margin-bottom: 1.5rem;
+  }
+
+  .option-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .option-values {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .option-value {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .option-value:hover {
+    border-color: #121212;
+  }
+
+  .option-value.selected {
+    background-color: #121212;
+    color: white;
+    border-color: #121212;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .quantity-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .quantity-input button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .quantity-input input {
+    width: 60px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .product-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .product-actions .button {
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    .product-main {
+      grid-template-columns: 1fr;
+    }
+
+    .product-actions {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+<div class="product-information">
+  {% if product %}
+    <div class="product-main">
+      <div class="product-gallery">
+        <div class="product-image">
+          <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
+        </div>
+        {% if product.images.size > 1 %}
+          <div class="product-thumbnails">
+            {% for image in product.images limit: 4 %}
+              <div class="product-thumbnail">
+                <img src="{{ image | image_url: width: 100 }}" alt="{{ product.title }}">
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="product-details">
+        {% if section.settings.show_vendor and product.vendor %}
+          <p class="product-vendor">{{ product.vendor }}</p>
+        {% endif %}
+
+        <h1>{{ product.title }}</h1>
+
+        <div class="product-meta">
+          {% if product.reviews %}
+            <div class="product-rating">
+              {% for i in (1..5) %}
+                {% if i <= product.rating %}
+                  <span class="star">★</span>
+                {% else %}
+                  <span class="star">☆</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <span>({{ product.reviews_count }} reviews)</span>
+          {% endif %}
+        </div>
+
+        {% if product.price %}
+          <div class="product-price">
+            {% if product.compare_at_price %}
+              <span class="original-price"><s>{{ product.compare_at_price | money }}</s></span>
+              {{ product.price | money }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+
+        {% if product.variants.size > 1 or product.options.size > 0 %}
+          <div class="product-options">
+            {% for option in product.options %}
+              <div class="product-option">
+                <label class="option-label">{{ option.name }}</label>
+                <div class="option-values">
+                  {% for value in option.values %}
+                    <button class="option-value" data-option="{{ option.name }}" data-value="{{ value }}">
+                      {{ value }}
+                    </button>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="quantity-selector">
+          <label for="quantity">Quantity:</label>
+          <div class="quantity-input">
+            <button type="button" class="quantity-minus">−</button>
+            <input type="number" id="quantity" name="quantity" value="1" min="1">
+            <button type="button" class="quantity-plus">+</button>
+          </div>
+        </div>
+
+        <div class="product-actions">
+          <button class="button" data-add-to-cart data-product-id="{{ product.id }}">
+            {{ 'products.general.add_to_cart' | t }}
+          </button>
+          <button class="button button-secondary" data-wishlist>
+            ♡ Wishlist
+          </button>
+        </div>
+
+        {% if section.settings.show_sku and product.selected_variant.sku %}
+          <p>SKU: {{ product.selected_variant.sku }}</p>
+        {% endif %}
+
+        <div class="product-meta-info">
+          <p><strong>Availability:</strong> {% if product.available %}In stock{% else %}Out of stock{% endif %}</p>
+          {% if product.selected_variant.inventory_quantity %}
+            <p><strong>Stock:</strong> {{ product.selected_variant.inventory_quantity }} available</p>
+          {% endif %}
+        </div>
+
+        <hr>
+
+        <div class="product-sharing">
+          <p>Share:</p>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ canonical_url | url_encode }}" target="_blank">Facebook</a>
+          <a href="https://twitter.com/intent/tweet?url={{ canonical_url | url_encode }}&text={{ product.title | url_encode }}" target="_blank">Twitter</a>
+          <a href="https://www.pinterest.com/pin/create/button/?url={{ canonical_url | url_encode }}" target="_blank">Pinterest</a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% javascript %}
+  // Quantity selector
+  document.querySelector('.quantity-plus')?.addEventListener('click', function() {
+    const input = document.querySelector('#quantity');
+    input.value = parseInt(input.value) + 1;
+  });
+
+  document.querySelector('.quantity-minus')?.addEventListener('click', function() {
+    const input = document.querySelector('#quantity');
+    if (parseInt(input.value) > 1) {
+      input.value = parseInt(input.value) - 1;
+    }
+  });
+
+  // Option selection
+  document.querySelectorAll('.option-value').forEach(button => {
+    button.addEventListener('click', function() {
+      this.parentElement.querySelectorAll('.option-value').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      this.classList.add('selected');
+    });
+  });
+{% endjavascript %}

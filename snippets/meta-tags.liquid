@@ -1,0 +1,20 @@
+<!-- Meta Tags for SEO and Social Sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{% if page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}">
+<meta property="og:description" content="{% if page_description %}{{ page_description }}{% else %}{{ shop.description }}{% endif %}">
+{% if product %}
+  <meta property="og:image" content="https:{{ product.featured_image | image_url: width: 600 }}">
+{% elsif page.image %}
+  <meta property="og:image" content="https:{{ page.image | image_url: width: 600 }}">
+{% else %}
+  <meta property="og:image" content="{{ 'placeholder.png' | asset_url }}">
+{% endif %}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}">
+<meta name="twitter:description" content="{% if page_description %}{{ page_description }}{% else %}{{ shop.description }}{% endif %}">
+
+{% if shop.metafields.custom.brand_color %}
+  <meta name="theme-color" content="{{ shop.metafields.custom.brand_color }}">
+{% endif %}

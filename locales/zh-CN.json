@@ -1,0 +1,45 @@
+{
+  "general": {
+    "404": {
+      "page": "页面未找到",
+      "suggestion": "您请求的页面不存在。点击此处继续购物。"
+    },
+    "breadcrumbs": {
+      "home": "主页"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "跳到主要内容"
+  },
+  "products": {
+    "general": {
+      "quantity_label": "数量",
+      "quantity_minimum_message": "最小数量为 {{ quantity }}",
+      "add_to_cart": "加入购物车",
+      "sold_out": "已售完",
+      "unavailable": "不可用"
+    },
+    "product": {
+      "price_label": "价格",
+      "regular_price": "原价",
+      "sale_price": "促销价"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "购物车",
+      "remove": "移除",
+      "estimated_total": "预计总计",
+      "continue_shopping": "继续购物",
+      "checkout": "结账",
+      "empty": "您的购物车为空",
+      "note": "订单特殊说明"
+    }
+  },
+  "policies": {
+    "privacy_policy": "隐私政策",
+    "terms_of_service": "服务条款",
+    "refund_policy": "退款政策",
+    "shipping_policy": "运输政策"
+  }
+}

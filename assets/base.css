@@ -1,0 +1,172 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: {{ settings.type_body_font }};
+  color: {{ settings.colors_text }};
+  background-color: {{ settings.colors_background_1 }};
+  line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: {{ settings.type_header_font }};
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: {{ settings.colors_accent_1 }};
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: {{ settings.colors_accent_2 }};
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: {{ settings.colors_accent_1 }};
+  color: {{ settings.colors_solid_button_labels }};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: {{ settings.colors_accent_2 }};
+  transform: translateY(-2px);
+}
+
+.button-secondary {
+  background-color: transparent;
+  border: 2px solid {{ settings.colors_accent_1 }};
+  color: {{ settings.colors_accent_1 }};
+}
+
+.button-secondary:hover {
+  background-color: {{ settings.colors_accent_1 }};
+  color: {{ settings.colors_solid_button_labels }};
+}
+
+/* Container */
+.container {
+  max-width: {{ settings.page_width }}px;
+  margin: 0 auto;
+  padding: 0 {{ settings.spacing_grid_horizontal }}px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: {{ settings.spacing_grid_vertical }}px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-danger {
+  color: #d32f2f;
+}
+
+.text-success {
+  color: #388e3c;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
